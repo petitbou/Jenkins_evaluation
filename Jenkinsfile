@@ -117,7 +117,7 @@ pipeline {
                     echo "KUBECONFIG content:"
                     cat $KUBECONFIG
                     cat $KUBECONFIG > .kube/config
-                    helm upgrade --install my-app ./my-app --namespace dev --create-namespace 
+                    helm upgrade --install my-app ../my-app --namespace dev --create-namespace 
                     """
                 }
             }
@@ -132,7 +132,7 @@ pipeline {
                     echo "KUBECONFIG content:"
                     cat $KUBECONFIG
                     cat $KUBECONFIG > .kube/config
-                    helm upgrade --install my-app ./my-app --namespace qa --create-namespace 
+                    helm upgrade --install my-app ../my-app --namespace qa --create-namespace 
                     """
                 }
             }
@@ -147,7 +147,7 @@ pipeline {
                     echo "KUBECONFIG content:"
                     cat $KUBECONFIG
                     cat $KUBECONFIG > .kube/config
-                    helm upgrade --install my-app ./my-app --namespace staging --create-namespace 
+                    helm upgrade --install my-app ../my-app --namespace staging --create-namespace 
                     """
                 }
             }
@@ -178,7 +178,7 @@ pipeline {
                     echo "KUBECONFIG content:"
                     cat $KUBECONFIG
                     cat $KUBECONFIG > .kube/config
-                    helm upgrade --install my-app ./my-app --namespace prod --create-namespace 
+                    helm upgrade --install my-app ../my-app --namespace prod --create-namespace 
                     """
                 }
             }
