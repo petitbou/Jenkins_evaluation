@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-movie-pv
+  namespace: 
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: local-path
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-db-service
+  namespace: 
+spec:
+  selector:
+    app: movie-db-service
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-db
+  template:
+    metadata:
+      labels:
+        app: movie-db
+    spec:
+      containers:
+      - name: movie-db
+        image: postgres:12.1-alpine
+        env:
+        - name: POSTGRES_DB
+          value: movie_db_dev
+        - name: POSTGRES_PASSWORD
+          value: movie_db_password
+        - name: POSTGRES_USER
+          value: movie_db_username
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data/
+          name: postgres-data-movie
+      volumes:
+      - name: postgres-data-movie
+        persistentVolumeClaim:
+          claimName: postgres-movie-pv
