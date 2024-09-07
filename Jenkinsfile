@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/petitbou/Jenkins_eval.git'
+                git branch: 'master', url: 'https://github.com/petitbou/Jenkins_evaluation.git'
             }
         }
 
@@ -155,7 +155,7 @@ pipeline {
 
         stage('Manual Approval for Production') {
     when {
-        branch 'main'  
+        branch 'master'  
     }
     steps {
         // Timeout de 15 minutes pour une validation manuelle
@@ -168,7 +168,7 @@ pipeline {
 
         stage('Deploy to Production') {
             when {
-                branch 'main'
+                branch 'master'
             }
             steps {
                 script {
